@@ -1,13 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const sendEmail = require("./api/send-email");
+const sendEmail = require("./api/send-email"); // Changed from ./functions/send-email
 const path = require("path");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, "public"))); // Serve files from public folder
+app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/send-email", async (req, res) => {
     try {
