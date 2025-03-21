@@ -1,3 +1,4 @@
+require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 module.exports = async (req, res) => {
@@ -17,16 +18,20 @@ module.exports = async (req, res) => {
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 587,
+            secure: false, // TLS
             auth: {
-                user: "bbhatta431@gmail.com",
-                pass: "njqdpurbhheixgpp" // Spaces hata diya
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            },
+            tls: {
+                rejectUnauthorized: false // For debugging, can be removed in production
             }
         });
 
         const mailOptions = {
-            from: "BBCare Team <bbhatta431@gmail.com>",
-            to: email, // User ka email
-            cc: "bbhatta431@gmail.com", // Hospital copy
+            from: `"BBCare Team" <${process.env.EMAIL_USER}>`,
+            to: email,
+            cc: process.env.EMAIL_USER, // Send a copy to BBCare
             subject: `BBCare: Your ${service} Booking Confirmation`,
             text: `Dear ${name},\n\nThank you for booking a ${service} with BBCare.\n\nBooking Details:\n${details}\n\nBest regards,\nBBCare Team`,
             html: `<p>Dear ${name},</p><p>Thank you for booking a <strong>${service}</strong> with BBCare.</p><p><strong>Booking Details:</strong><br>${details.replace(/"/g, '').replace(/,/g, '<br>')}</p><p>Best regards,<br>BBCare Team</p>`
