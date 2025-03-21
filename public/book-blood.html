@@ -39,42 +39,41 @@
     </div>
 
     <script>
-        document.getElementById("bloodCollectionForm").addEventListener("submit", function (e) {
-            e.preventDefault();
+       document.getElementById("bloodCollectionForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-            // Prepare form data
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get("name"),
-                email: formData.get("email"),
-                phone: formData.get("phone"),
-                address: formData.get("address"),
-                date: formData.get("date"),
-                service: "Blood Collection",
-                details: JSON.stringify(Object.fromEntries(formData))
-            };
+    const formData = new FormData(this);
+    const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        address: formData.get("address"),
+        date: formData.get("date"),
+        service: "Blood Collection",
+        details: JSON.stringify(Object.fromEntries(formData))
+    };
 
-            fetch("/api/send-email", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Server error: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById("responseMessage").innerText = "Booking Successful!";
-                alert("Booking Successful: " + data.message);
-                this.reset(); // Reset form after successful booking
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                document.getElementById("responseMessage").innerText = "Failed to send email. Check console for details.";
-            });
-        });
+    fetch("/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById("responseMessage").innerText = "Booking Successful!";
+        alert("Booking Successful: " + data.message);
+        this.reset();
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        document.getElementById("responseMessage").innerText = "Failed to send email. Check console for details.";
+    });
+});
     </script>
 </body>
 </html>

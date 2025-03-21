@@ -154,49 +154,39 @@
     </div>
 
     <script>
-        document.getElementById("labForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            console.log("Lab Form submitted!");
+       document.getElementById("labForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    console.log("Lab Form submitted!");
 
-            // Disable the submit button and show loading message
-            const submitButton = e.target.querySelector("button");
-            const loadingMessage = document.querySelector(".loading");
-            submitButton.disabled = true;
-            loadingMessage.style.display = "block";
+    const formData = new FormData(this);
+    const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        service: "Lab Test Booking",
+        details: JSON.stringify(Object.fromEntries(formData))
+    };
 
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get("name"),
-                email: formData.get("email"),
-                phone: formData.get("phone"),
-                service: "Lab Test Booking",
-                details: JSON.stringify(Object.fromEntries(formData))
-            };
-
-            fetch("/api/send-email", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                console.log("Response status:", response.status);
-                if (!response.ok) throw new Error(`Server error: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                console.log("Server response:", data);
-                alert("Booking Successful!");
-                this.reset(); // Reset form after successful booking
-                loadingMessage.style.display = "none";
-                submitButton.disabled = false;
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Failed to send email: " + error.message);
-                loadingMessage.style.display = "none";
-                submitButton.disabled = false;
-            });
-        });
+    fetch("/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        console.log("Response status:", response.status);
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        return response.json();
+    })
+    .then(data => {
+        console.log("Server response:", data);
+        alert("Booking Successful!");
+        this.reset();
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to send email: " + error.message);
+    });
+});
     </script>
 </body>
 </html>
