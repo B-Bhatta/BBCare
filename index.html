@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBCare- A Wellness Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <div class="header-right">
+            <img src="logo.png" alt="B.B Hospital Logo">
+            <h1>BBCare</h1>
+        </div>
+
+        <div class="header-left">
+            <!-- Menu Button for Mobile/Tablet -->
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+            <nav id="navMenu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#doctors">OPD Services</a></li>
+                    <li><a href="#lab-tests">Lab Tests</a></li>
+                    <li><a href="book-doctor.html">Book Doctor Appointment</a></li>
+                    <li><a href="book-lab.html">Book Labortory and Imaging Tests </a></li>
+                    <li><a href="book-blood.html">Book Home blood Collection</a></li>
+                    <li><a href="#about-us">About Us</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+   <!--Home-->
+   <div id="home">
+    <div class="home-container">
+        <div class="home-left">
+            <img src="pngwing.com (1).png" alt="Medical Care">
+        </div>
+        <div class ="home-right">
+            <h1>Welcome to BBCare</h1>
+            <p><h4>We are committed to providing the best medical care and diagnostic services with accuracy and compassion.</h4></p>
+            <h2>Our Motto:</h2>
+            <p class="motto">"Your Health, Our Priority"</p>
+            
+        </div>
+    </div>
+   </div> 
+   <!-- OPD Services Section -->
+<div id="doctors" class="opd-container">
+    <h2>Our Doctors</h2>
+    <div class="doctors-list">
+        <div class="doctor-card">
+            <img src="doctor1.jpg" alt="Dr. A">
+            <h3>Dr. David Warner</h3>
+            <p><strong>Specialization:</strong> Pediatrician</p>
+            <p><strong>Experience:</strong> 10 years</p>
+            <p><strong>Availability:</strong> Mon-Sat, 10 AM - 5 PM</p>
+        </div>
+
+        <div class="doctor-card">
+            <img src="doctor2.jpg" alt="Dr. B">
+            <h3>Dr.Virat Kholi</h3>
+            <p><strong>Specialization:</strong> General Medicine</p>
+            <p><strong>Experience:</strong> 8 years</p>
+            <p><strong>Availability:</strong> Mon-Sat, 10 AM - 5 PM</p>
+        </div>
+
+        <div class="doctor-card">
+            <img src="doctor3.jpg" alt="Dr. C">
+            <h3>Dr. Rohit Sarma</h3>
+            <p><strong>Specialization:</strong> Surgeon</p>
+            <p><strong>Experience:</strong> 12 years</p>
+            <p><strong>Availability:</strong> Mon-Sat, 10 AM - 5 PM</p>
+        </div>
+
+        <div class="doctor-card">
+            <img src="doctor4.jpg" alt="Dr. D">
+            <h3>Dr. R. Kalita</h3>
+            <p><strong>Specialization:</strong> Cardiologist</p>
+            <p><strong>Experience:</strong> 15 years</p>
+            <p><strong>Availability:</strong> Mon-Sat, 10 AM - 5 PM</p>
+        </div>
+
+        <div class="doctor-card">
+            <img src="doctor5.jpg" alt="Dr. E">
+            <h3>Dr.Guatam Gambhir </h3>
+            <p><strong>Specialization:</strong> Dentist</p>
+            <p><strong>Experience:</strong> 7 years</p>
+            <p><strong>Availability:</strong> Mon-Sat, 10 AM - 5 PM</p>
+        </div>
+
+        <div class="doctor-card">
+            <img src="doctor6.jpg" alt="Dr. F">
+            <h3>Dr. Fatema Begum</h3>
+            <p><strong>Specialization:</strong> Neurologist</p>
+            <p><strong>Experience:</strong> 9 years</p>
+            <p><strong>Availability:</strong> Mon-Sat, 10 AM - 5 PM</p>
+        </div>
+    </div>
+</div>
+<section id="lab-tests">
+    <h2>Available Lab Tests</h2>
+
+    <div class="lab-category">
+        <h3>Blood Tests</h3>
+        <table class="lab-table">
+            <thead>
+                <tr>
+                    <th>Test Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Complete Blood Count (CBC)</td>
+                    <td>Blood Test</td>
+                    <td>₹500</td>
+                    <td>Mon-Sat</td>
+                </tr>
+                <tr>
+                    <td>Kidney Function Test (KFT)</td>
+                    <td>Blood Test</td>
+                    <td>₹700</td>
+                    <td>Mon-Sat</td>
+                </tr>
+                <tr>
+                    <td>Liver Function Test (LFT)</td>
+                    <td>Blood Test</td>
+                    <td>₹650</td>
+                    <td>Mon-Sat</td>
+                </tr>
+                <tr>
+                    <td>Thyroid Function Test</td>
+                    <td>Hormone Test</td>
+                    <td>₹700</td>
+                    <td>Mon-Sat</td>
+                </tr>
+                <tr>
+                    <td>Viral Test</td>
+                    <td>Infection Test</td>
+                    <td>₹900</td>
+                    <td>Mon-Sat</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="lab-category">
+        <h3>Imaging & Diagnostic Tests</h3>
+        <table class="lab-table">
+            <thead>
+                <tr>
+                    <th>Test Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Electrocardiogram (ECG)</td>
+                    <td>Heart Test</td>
+                    <td>₹400</td>
+                    <td>Mon-Sat</td>
+                </tr>
+                <tr>
+                    <td>Ultrasound</td>
+                    <td>Imaging Test</td>
+                    <td>₹1200</td>
+                    <td>Mon-Sat</td>
+                </tr>
+                <tr>
+                    <td>X-Ray</td>
+                    <td>Imaging Test</td>
+                    <td>₹500</td>
+                    <td>Mon-Sat</td>
+                </tr>
+                <tr>
+                    <td>MRI Scan</td>
+                    <td>Imaging Test</td>
+                    <td>₹5000</td>
+                    <td>Mon-Sat</td>
+                </tr>
+                <tr>
+                    <td>CT Scan</td>
+                    <td>Imaging Test</td>
+                    <td>₹4500</td>
+                    <td>Mon-Sat</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="about-us">
+    <h2>About Us</h2>
+    <p>
+        Welcome to BBCare Center, your trusted destination for comprehensive healthcare services.
+    </p>
+    <p>
+        The vision of BBCare Center is to achieve wellness of people for the enrichment of energy, health, and fitness. 
+        The centre provides state-of-the-art diagnostic services through the input of reputed and experienced professionals 
+        and high-end instruments. Our super speciality OPD delivers consultation from eminent and experienced doctors.
+    </p>
+</section>
+
+
+<!-- Contact Us Section -->
+<section id="contact">
+    <h2>Contact Us</h2>
+    <ul>
+        <li><strong>Phone:</strong> <a href="tel:+916003393896">+91 60033 93896</a></li>
+        <li><strong>Email:</strong> <a href="mailto:bbhatta431@gmail.com">bbhatta431@gmail.com</a></li>
+        <li><strong>Address:</strong> Bidyapur, Nalbari, Assam - 781335</li>
+    </ul>
+</section>
+
+
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <div class="footer-left">
+            <p>&copy; 2025 BBCare. All Rights Reserved.</p>
+        </div>
+        <div class="footer-right">
+            <p>Nalbari, Assam Pin-781335</p>
+        </div>
+    </div>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>

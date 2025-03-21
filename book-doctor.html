@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Doctor Appointment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .appointment-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .appointment-container h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .appointment-container p {
+            color: #666;
+            font-size: 16px;
+        }
+        .appointment-form {
+            margin-top: 15px;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 80px;
+            resize: none;
+        }
+        .appointment-form button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .appointment-form button:hover {
+            background: #0056b3;
+        }
+        .loading {
+            display: none;
+            margin-top: 10px;
+            color: #007bff;
+            font-size: 16px;
+        }
+        @media (max-width: 768px) {
+            .appointment-container {
+                max-width: 90%;
+                padding: 15px;
+            }
+            .appointment-container h2 {
+                font-size: 20px;
+            }
+            .appointment-form button {
+                font-size: 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            .appointment-container {
+                max-width: 95%;
+            }
+            .appointment-container h2 {
+                font-size: 18px;
+            }
+            .appointment-form button {
+                font-size: 15px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="appointment-container">
+        <h2>Book Doctor Appointment</h2>
+        <p>Fill in the details to book a doctor appointment.</p>
+
+        <form id="doctorForm" class="appointment-form">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="doctor">Select Doctor:</label>
+                <select id="doctor" name="doctor" required>
+                    <option value="" disabled selected>Select a Doctor</option>
+                    <option value="Dr. David Warner">Dr. David Warner - Pediatrician</option>
+                    <option value="Dr. Virat Kohli">Dr. Virat Kohli - General Medicine</option>
+                    <option value="Dr. Rohit Sharma">Dr. Rohit Sharma - Surgeon</option>
+                    <option value="Dr. R. Kalita">Dr. R. Kalita - Cardiologist</option>
+                    <option value="Dr. Gautam Gambhir">Dr. Gautam Gambhir - Dentist</option>
+                    <option value="Dr. Fatema Begum">Dr. Fatema Begum - Neurologist</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Preferred Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="slot">Preferred Slot:</label>
+                <select id="slot" name="slot" required>
+                    <option value="" disabled selected>Select a Slot</option>
+                    <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                    <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
+                    <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+                    <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                    <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+                    <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+                </select>
+            </div>
+            <button type="submit">Confirm Appointment</button>
+        </form>
+
+        <div class="loading">Sending... Please wait.</div>
+    </div>
+
+    <script>
+        document.getElementById("doctorForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            console.log("Doctor Form submitted!");
+
+            // Disable the submit button and show loading message
+            const submitButton = e.target.querySelector("button");
+            const loadingMessage = document.querySelector(".loading");
+            submitButton.disabled = true;
+            loadingMessage.style.display = "block";
+
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                phone: formData.get("phone"),
+                service: "Doctor Appointment",
+                details: JSON.stringify(Object.fromEntries(formData))
+            };
+
+            fetch("/api/send-email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                console.log("Response status:", response.status);
+                if (!response.ok) throw new Error(`Server error: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                console.log("Server response:", data);
+                alert("Booking Successful!");
+                this.reset(); // Reset form after successful booking
+                loadingMessage.style.display = "none";
+                submitButton.disabled = false;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Failed to send email: " + error.message);
+                loadingMessage.style.display = "none";
+                submitButton.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Lab Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .appointment-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .appointment-container h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .appointment-container p {
+            color: #666;
+            font-size: 16px;
+        }
+        .appointment-form {
+            margin-top: 15px;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 80px;
+            resize: none;
+        }
+        .appointment-form button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .appointment-form button:hover {
+            background: #0056b3;
+        }
+        .loading {
+            display: none;
+            margin-top: 10px;
+            color: #007bff;
+            font-size: 16px;
+        }
+        @media (max-width: 768px) {
+            .appointment-container {
+                max-width: 90%;
+                padding: 15px;
+            }
+            .appointment-container h2 {
+                font-size: 20px;
+            }
+            .appointment-form button {
+                font-size: 16px;
+            }
+        }
+        @media (max-width: 480px) {
+            .appointment-container {
+                max-width: 95%;
+            }
+            .appointment-container h2 {
+                font-size: 18px;
+            }
+            .appointment-form button {
+                font-size: 15px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="appointment-container">
+        <h2>Book Lab Test</h2>
+        <p>Fill in the details to book a lab test.</p>
+
+        <form id="labForm" class="appointment-form">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="lab-test">Select Lab Test:</label>
+                <select id="lab-test" name="lab-test" required>
+                    <option value="" disabled selected>Select a Lab Test</option>
+                    <option value="Complete Blood Count (CBC)">Complete Blood Count (CBC) - ₹500</option>
+                    <option value="Kidney Function Test (KFT)">Kidney Function Test (KFT) - ₹700</option>
+                    <option value="Liver Function Test (LFT)">Liver Function Test (LFT) - ₹650</option>
+                    <option value="Thyroid Function Test">Thyroid Function Test - ₹700</option>
+                    <option value="Viral Test">Viral Test - ₹900</option>
+                    <option value="Electrocardiogram (ECG)">Electrocardiogram (ECG) - ₹400</option>
+                    <option value="Ultrasound">Ultrasound - ₹1200</option>
+                    <option value="X-Ray">X-Ray - ₹500</option>
+                    <option value="MRI Scan">MRI Scan - ₹5000</option>
+                    <option value="CT Scan">CT Scan - ₹4500</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="lab-date">Preferred Date:</label>
+                <input type="date" id="lab-date" name="lab-date" required>
+            </div>
+            <button type="submit">Confirm Lab Test</button>
+        </form>
+
+        <div class="loading">Sending... Please wait.</div>
+    </div>
+
+    <script>
+        document.getElementById("labForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            console.log("Lab Form submitted!");
+
+            // Disable the submit button and show loading message
+            const submitButton = e.target.querySelector("button");
+            const loadingMessage = document.querySelector(".loading");
+            submitButton.disabled = true;
+            loadingMessage.style.display = "block";
+
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get("name"),
+                email: formData.get("email"),
+                phone: formData.get("phone"),
+                service: "Lab Test Booking",
+                details: JSON.stringify(Object.fromEntries(formData))
+            };
+
+            fetch("/api/send-email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                console.log("Response status:", response.status);
+                if (!response.ok) throw new Error(`Server error: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                console.log("Server response:", data);
+                alert("Booking Successful!");
+                this.reset(); // Reset form after successful booking
+                loadingMessage.style.display = "none";
+                submitButton.disabled = false;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Failed to send email: " + error.message);
+                loadingMessage.style.display = "none";
+                submitButton.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>
